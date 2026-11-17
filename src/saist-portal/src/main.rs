@@ -332,6 +332,42 @@ fn fallback_presentation_directory() -> PathBuf {
     temp_deck
 }
 
+/// 將設定檔中的絕對或相對目錄解析為可寫入的絕對路徑。
+fn resolve_configured_presentation_dir(raw: &str) -> Option<PathBuf> {
+    let trimmed = raw.trim();
+    if trimmed.is_empty() {
+        return None;
+    }
+
+    let raw_path = PathBuf::from(trimmed);
+    let resolved = if raw_path.is_absolute() {
+        raw_path
+    } else {
+        let cwd = std::env::current_dir().ok()?;
+        if !is_writable_deck_dir(&cwd) {
+            return None;
+        }
+        let mut base = cwd;
+        for component in raw_path.components() {
+            match component {
+                std::path::Component::CurDir => {}
+                std::path::Component::ParentDir => {
+                    base.pop();
+                }
+                std::path::Component::Normal(part) => base.push(part),
+                std::path::Component::RootDir | std::path::Component::Prefix(_) => {}
+            }
+        }
+        base
+    };
+
+    if is_writable_deck_dir(&resolved) {
+        Some(resolved)
+    } else {
+        None
+    }
+}
+
 fn presentation_directory() -> PathBuf {
     if let Some(path) = std::env::var_os("SAIST_PRESENTATION_DIR") {
         let p = PathBuf::from(path);
@@ -358,14 +394,12 @@ fn presentation_directory() -> PathBuf {
     }
 
     let config: Value = serde_json::from_str(APP_CONFIG).unwrap_or_default();
-    if let Some(dir) = config
+    if let Some(resolved) = config
         .get("default_presentation_dir")
         .and_then(Value::as_str)
-        .filter(|s| !s.trim().is_empty())
+        .and_then(resolve_configured_presentation_dir)
     {
-        let p = PathBuf::from(dir);
-        let _ = std::fs::create_dir_all(&p);
-        return p;
+        return resolved;
     }
 
     // 檢查當前工作目錄是否合適（非根目錄且具備寫入能力）
@@ -436,7 +470,10 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::{is_overlay_mode, is_writable_deck_dir, presentation_directory};
+    use super::{
+        is_overlay_mode, is_writable_deck_dir, presentation_directory,
+        resolve_configured_presentation_dir,
+    };
     use std::path::Path;
 
     #[test]
@@ -460,5 +497,14 @@ mod tests {
         let dir = presentation_directory();
         assert_ne!(dir, Path::new("/"));
         assert!(dir.is_absolute());
+    }
+
+    #[test]
+    fn relative_configured_dir_resolves_to_absolute_path() {
+        let dir = resolve_configured_presentation_dir("./SAISlideTake_Data")
+            .expect("relative configured path should resolve under writable cwd");
+        assert!(dir.is_absolute());
+        assert!(dir.ends_with("SAISlideTake_Data"));
+        let _ = std::fs::remove_dir(&dir);
     }
 }
