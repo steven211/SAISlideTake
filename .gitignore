@@ -1,0 +1,46 @@
+# ==============================================================================
+# SAISlideTake Open-Source .gitignore
+# ==============================================================================
+
+# 1. Compilation & Build Outputs
+target/
+**/target/
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+dist-ssr/
+.vite/
+**/.vite/
+9.output/
+**/9.output/
+
+# 2. Binaries & Packages
+*.exe
+*.dll
+*.so
+*.dylib
+*.app/
+*.dmg
+*.tar.gz
+*.zip
+
+# 3. Runtime Data & Audio Recordings
+audio/
+**/audio/
+data/
+**/data/
+*.wav
+*.mp3
+*.webm
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+
+# 4. OS & IDE Caches
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log

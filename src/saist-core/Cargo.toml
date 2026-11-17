@@ -1,0 +1,26 @@
+[package]
+name = "saist-core"
+version = "0.1.0"
+edition = "2021"
+description = "SAISlideTake Core Engine: Slide audio sharding, Golden Take manifest & WebAPI bridge"
+
+[dependencies]
+axum = { version = "0.8", features = ["ws"] }
+cpal = "0.18"
+chrono = { version = "0.4", features = ["clock", "serde"] }
+futures-util = "0.3"
+hound = "3.5"
+quick-xml = "0.36"
+scraper = "0.29"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+zip = { version = "2.2", default-features = false, features = ["deflate"] }
+tempfile = "3"
+tokio = { version = "1", features = ["fs", "macros", "net", "rt-multi-thread", "sync"] }
+tokio-util = { version = "0.7", features = ["io"] }
+tower-http = { version = "0.7", features = ["cors"] }
+
+[dev-dependencies]
+http-body-util = "0.1"
+tokio-tungstenite = { version = "0.29", features = ["connect"] }
+tower = { version = "0.5", features = ["util"] }

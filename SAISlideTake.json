@@ -1,0 +1,7 @@
+{
+  "project_name": "SAISlideTake",
+  "app_version": "0.1.0",
+  "default_presentation_dir": "./SAISlideTake_Data",
+  "default_port": 3188,
+  "default_web_port": 1425
+}

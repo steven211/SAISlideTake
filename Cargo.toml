@@ -1,0 +1,29 @@
+[workspace]
+resolver = "2"
+members = [
+  "src/saist-core",
+  "src/saist-portal",
+]
+
+[profile.release]
+opt-level = "z"
+lto = "thin"
+codegen-units = 16
+panic = "abort"
+strip = true
+debug = 0
+incremental = true
+
+[profile.dev]
+# P0: 完全關閉優化，換取最快編譯
+opt-level = 0
+# P0: 最大化平行編譯單元
+codegen-units = 512
+# P0: 分割偵錯資訊，減少連結器負擔 (Unpacked 模式最快)
+split-debuginfo = "unpacked"
+# P1: 增量編譯
+incremental = true
+# P1: 減少偵錯資訊的複雜度
+debug = 1
+# P2: 依賴包使用最佳化編譯以加速執行
+package."*" = { opt-level = 3 }

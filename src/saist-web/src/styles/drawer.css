@@ -1,0 +1,45 @@
+.take-drawer {
+  position: absolute;
+  z-index: 2;
+  top: 63px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 414px;
+  padding: 13px;
+  overflow: hidden;
+  border: 1px solid #ffffff22;
+  border-radius: 18px;
+  background: #10243acc;
+  box-shadow: 0 18px 40px #050b14c9;
+  backdrop-filter: blur(18px);
+}
+.drawer-heading { display: flex; flex: 0 0 auto; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 1px 0 12px; border-bottom: 1px solid #ffffff16; }
+.drawer-heading div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.drawer-heading span { color: #f3f7ff; font-size: 14px; font-weight: 750; }
+.drawer-heading small { overflow: hidden; color: #99adc4; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.close-button { flex: 0 0 27px; width: 27px; height: 27px; border: 1px solid #ffffff20; border-radius: 9px; background: #ffffff0a; color: #dce6f4; cursor: pointer; font-size: 19px; line-height: 1; }
+.take-list { display: flex; flex-direction: column; gap: 9px; padding: 12px 2px 6px 0; overflow-y: auto; scrollbar-color: #41637f transparent; scrollbar-width: thin; }
+.take-card { padding: 10px; border: 1px solid #ffffff1a; border-radius: 13px; background: #ffffff07; }
+.take-card.golden { border-color: #f59e0b; box-shadow: inset 0 0 0 1px #f59e0b40, 0 0 17px #f59e0b12; }
+.take-card-heading, .take-meta, .take-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.take-card-heading strong { color: #eaf4ff; font-size: 12px; }
+.golden-badge { color: #ffca57; font-size: 10px; font-weight: 750; }
+.take-meta { justify-content: flex-start; margin-top: 5px; color: #91a5ba; font-size: 10px; }
+.take-meta time { font-variant-numeric: tabular-nums; }
+.take-progress { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.take-progress input { flex: 1; height: 14px; margin: 0; accent-color: #58c2ef; cursor: pointer; }
+.take-progress input:disabled { cursor: default; opacity: .45; }
+.take-progress small { min-width: 58px; color: #8297ad; font-size: 9px; font-variant-numeric: tabular-nums; text-align: right; }
+.take-actions { margin-top: 9px; }
+.take-actions button { min-height: 28px; padding: 4px 8px; border: 1px solid #ffffff1b; border-radius: 8px; background: #ffffff0b; color: #dcecff; cursor: pointer; font-size: 10px; }
+.take-actions button:hover { background: #ffffff18; }
+.take-actions .play-button { min-width: 72px; border-color: #5bbbea48; color: #a7e2ff; }
+.take-actions .golden-button { flex: 1; border-color: #f59e0b55; color: #ffd276; }
+.take-actions .delete-button { flex: 0 0 30px; padding: 4px; color: #ff9e9e; }
+.note-label { display: flex; flex-direction: column; gap: 4px; margin-top: 9px; color: #9cb2c7; font-size: 10px; }
+.note-label input { width: 100%; height: 29px; padding: 0 8px; border: 1px solid #ffffff18; border-radius: 8px; outline: none; background: #071726aa; color: #e7f1ff; font-size: 11px; }
+.note-label input:focus { border-color: #5dbbe9; }
+.note-label input::placeholder { color: #71859b; }
+.empty-state { display: grid; flex: 1; place-items: center; color: #9aadc1; font-size: 12px; }
